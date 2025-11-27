@@ -1,0 +1,51 @@
+environment:
+  base_url: http://localhost:3000
+
+setup_requests:
+  - name: fetch_accounts
+    headers:
+      Content-Type: application/json
+    method: GET
+    path: "/api/customers"
+    extractors:
+      - type: json
+        selectors:
+          ids: "#.id"
+
+  - name: open_account
+    headers:
+      Content-Type: application/json
+    method: POST
+    path: "/api/customers"
+    body: |
+      {
+        "customer": {
+          "name": "[[name]]",
+          "email": "[[email]]"
+        },
+        "initial_balance": [[balance]]
+      }
+    extractors:
+      - type: json
+        selectors:
+          account_id: account_id
+    assertions:
+      - type: is_not_null
+        variable: "{{account_id}}"
+
+request_frequency: 1s
+
+requests:
+  - name: check balance
+    method: GET
+    path: "/api/accounts/{{account_id}}"
+
+  - name: make transfer
+    method: POST
+    path: "/api/accounts"
+    body: |
+      {
+        "account_id": {{ids}},
+        "to_account_id": {{account_id}},
+        "amount": [[n10]]
+      }

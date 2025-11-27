@@ -1,0 +1,9 @@
+# Sensitive
+.env
+crdb/certs
+crdb/keys
+
+# Misc
+replicator
+help
+crdb/data
