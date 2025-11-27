@@ -8,7 +8,10 @@ A collection of complete database migrations from a variety of source databases 
 
 ### Terminals
 
+### Dependencies
 
+* [sqlplus](https://www.oracle.com/uk/database/technologies/instant-client/downloads.html)
+* [qapi](https://github.com/codingconcepts/qapi) (or your own workload generator)
 
 ### Introduction
 
